@@ -1,0 +1,397 @@
+<!-- Nav bar -->
+<div class="container-fluid min-vh-100">
+  <nav class="px-5 py-2 navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" routerLink="/"><img src="../../../assets/images/Color logo with background.png" alt="logo" height="80px" style="border-radius: 100%;"></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-end p-1"
+        id="navbarNavAltMarkup"
+      >
+        <div class="products mx-4 text-dark" routerLink="products">
+          <i class="bi bi-box2-fill" routerLinkActive="active"></i> Products
+        </div>
+        <div
+          class="products me-4 text-dark"
+          routerLink="orders"
+          *ngIf="loginStatus()"
+        >
+          <i class="bi bi-clipboard-data-fill"></i> Orders
+        </div>
+        <div class="navbar-nav" *ngIf="loginStatus()">
+          <button
+            type="button"
+            class="btn btn-outline-dark position-relative"
+            id="cart-nav-btn"
+            routerLink="/cart"
+          >
+            ₹<span id="cart-nav">{{ navPrice() }}</span> -
+            <i class="bi bi-cart4 fs-5"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              id="cart-count"
+              *ngIf="navCartLength() > 0"
+            >
+              {{ navCartLength() }}
+            </span>
+          </button>
+        </div>
+        <div class="nav-item dropdown mx-4 me-5 pe-5" *ngIf="!loginStatus()">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-person-circle fs-4"></i>
+          </a>
+          <ul class="dropdown-menu bg-dark">
+            <li>
+              <a
+                #openModal
+                class="dropdown-item text-white"
+                data-bs-toggle="modal"
+                data-bs-target="#signinModal"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item text-white"
+                data-bs-toggle="modal"
+                data-bs-target="#signupModal"
+                >Register</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="nav-item dropdown mx-4 me-5 pe-5" *ngIf="loginStatus()">
+          <button class="btn btn-outline-danger text-black" (click)="logout()">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="hero align-items-center d-flex flex-column justify-content-center min-vh-100"
+  >
+    <h1 id="hero-title">Welcome to E-Shop.com</h1>
+    <h4 id="sub">All you need in <span>#1</span> place</h4>
+    <!-- <img src="../../../assets/images/down-arrow.png" alt="down" height="40px" class="mt-4"/> -->
+    <button class="btn btn-lg btn-outline-dark mt-4" routerLink="/products">
+      Explore <i class="bi bi-arrow-right-circle-fill"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Modal -->
+<!-- Login Modal -->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  id="signinModal"
+  tabindex="-1"
+  aria-labelledby="productLabel"
+  aria-hidden="true"
+>
+  <!-- Modal Header -->
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalTitle">Sign in</h4>
+        <button
+          class="close"
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #login="ngForm" (ngSubmit)="loginPage(login)">
+          <div class="form-group">
+            <label>Admin Mail and Pass to check</label>
+            <input
+              type="text"
+              class="form-control"
+              value="mail: admin@kumaran.com - Pass: kumaran"
+              disabled
+            />
+            <label>Sample User Mail and Pass to check</label>
+            <input
+              type="text"
+              class="form-control"
+              value="mail: dharun@gmail.com - Pass: Pass@123"
+              disabled
+            />
+            <label>Mail ID</label>
+            <input
+              type="email"
+              class="form-control"
+              id="signin-mail"
+              placeholder="Enter your mail"
+              name="email"
+              ngModel
+              required
+              #modelEmail="ngModel"
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              [ngClass]="
+                modelEmail.invalid && (modelEmail.touched || modelEmail.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <div
+              *ngIf="
+                (modelEmail.invalid && modelEmail.touched) || modelEmail.dirty
+              "
+              class="invalid-feedback"
+            >
+              Please enter a valid email.
+            </div>
+            <label>Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="signin-pass"
+              placeholder="Enter password"
+              name="pass"
+              ngModel
+              required
+              #modelPass="ngModel"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%?&])[A-Za-z\d$@$!%?&]{8,}$"
+              [ngClass]="
+                modelPass.invalid && (modelPass.touched || modelPass.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <div
+              *ngIf="
+                (modelPass.invalid && modelPass.touched) || modelPass.dirty
+              "
+              class="invalid-feedback"
+            >
+              Please enter a valid Password.
+            </div>
+
+            <p class="mt-2">
+              New customer?
+              <span
+                data-bs-target="#signupModal"
+                data-bs-toggle="modal"
+                class="text-primary bi-cursor-fill"
+                >click here.</span
+              >
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              (click)="loginPage(login)"
+              id="signin-btn"
+              type="submit"
+              class="btn btn-success"
+            >
+              SignIn
+            </button>
+            <button
+              #closeModal
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Register Page -->
+<!-- SignUp Modal -->
+<div
+  class="modal fade"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  id="signupModal"
+  tabindex="-1"
+  aria-labelledby="productLabel"
+  aria-hidden="true"
+>
+  <!-- Modal Header -->
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalTitle">Sign in</h4>
+        <button
+          class="close"
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submitRegister(registerForm)" #registerForm="ngForm">
+          <div class="form-group">
+            <label>Username</label>
+            <input
+              type="email"
+              class="form-control"
+              id="signup-name"
+              placeholder="Enter your name"
+              required
+              name="name"
+              ngModel
+              #modelRName="ngModel"
+              minlength="3"
+              pattern="^[a-zA-Z\-']+$"
+              [ngClass]="
+                modelRName.invalid && (modelRName.touched || modelRName.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <div
+              *ngIf="
+                (modelRName.errors?.['minlength']?.['requiredLength'] && modelREmail.touched) ||
+                modelREmail.dirty
+              "
+              class="invalid-feedback"
+            >
+              Please enter your name.
+            </div>
+            <div
+              *ngIf="
+              modelRName.errors?.['pattern']
+              "
+              class="invalid-feedback"
+            >
+              Name should contains only alphabets.
+            </div>
+            <label>Mail ID</label>
+            <input
+              type="email"
+              class="form-control"
+              id="signup-mail"
+              placeholder="Enter your mail"
+              name="email"
+              ngModel
+              required
+              #modelREmail="ngModel"
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              [ngClass]="
+                modelREmail.invalid &&
+                (modelREmail.touched || modelREmail.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <div
+              *ngIf="
+                (modelREmail.invalid && modelREmail.touched) ||
+                modelREmail.dirty
+              "
+              class="invalid-feedback"
+            >
+              Please enter a valid email.
+            </div>
+            <label>Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="signup-pass"
+              placeholder="Enter password"
+              name="pass"
+              ngModel
+              required
+              #modelRPass="ngModel"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%?&])[A-Za-z\d$@$!%?&]{8,}$"
+              [ngClass]="
+                modelRPass.invalid && (modelRPass.touched || modelRPass.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <div
+              *ngIf="
+                (modelRPass.invalid && modelRPass.touched) || modelRPass.dirty
+              "
+              class="invalid-feedback"
+            >
+              Please enter a valid password. ( The Password Should be atleast 8
+              characters & Contain at least 1 uppercase, 1 symbol, 1 number, 1
+              lowercase.)
+            </div>
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="signup-c-pass"
+              placeholder="Enter password again"
+              name="Cpass"
+              ngModel
+              required
+              #modelRCPass="ngModel"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%?&])[A-Za-z\d$@$!%?&]{8,}$"
+              [ngClass]="
+                modelRCPass.invalid &&
+                (modelRCPass.touched || modelRCPass.dirty)
+                  ? 'is-invalid'
+                  : ''
+              "
+            />
+            <div
+              *ngIf="
+                modelRCPass.touched ||
+                (modelRCPass.dirty && modelRCPass.value !== modelRPass.value)
+              "
+              class="invalid-feedback"
+            >
+              Mismatch Password!
+            </div>
+            <p class="my-2" id="error"></p>
+          </div>
+          <p class="mt-2">
+            Already a customer?
+            <span
+              data-bs-target="#signinModal"
+              data-bs-toggle="modal"
+              class="text-primary bi-cursor-fill" #openLogin
+              >click here.</span
+            >
+          </p>
+          <div class="modal-footer">
+            <button type="submit" id="signup" class="btn btn-success">
+              SignUp
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

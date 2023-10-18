@@ -1,0 +1,11 @@
+#menu-title {
+  background: -webkit-linear-gradient(#3527ff, #a000a0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+}
+
+.container{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

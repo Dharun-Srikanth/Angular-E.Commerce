@@ -1,0 +1,44 @@
+<app-nav></app-nav>
+<div class="container ms-5 products">
+  <h2 class="pt-5 fw-bold mb-3 text-center" id="menu-title">
+    Impressive Products For You!
+  </h2>
+  <div class="card-layers row" id="outer-div">
+    <div class="cards my-5 col-3" *ngFor="let product of productsList">
+      <div class="card" id="card" style="width: 20rem">
+        <img src="{{ product.img }}" class="card-img-top" alt="product" />
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title fw-bold">{{ product.name }}</h5>
+            <p class="fw-bold">₹ {{ product.price }}</p>
+          </div>
+
+          <p class="card-text" style="text-align: justify">
+            {{ product.desc.substr(0, 60) }} ...
+          </p>
+          <div class="buttons" *ngIf="loginStatus()">
+            <button
+              class="btn btn-success w-100 cartBtn"
+              (click)="addToCart(product.id)"
+            >
+              Add to Cart
+            </button>
+          </div>
+          <div class="buttons" *ngIf="!loginStatus()">
+            <button
+              class="btn btn-success w-100 cartBtn disabled"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-bs-title="You need to login to add products"
+              (click)="addToCart(product.id)"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

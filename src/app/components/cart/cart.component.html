@@ -1,0 +1,85 @@
+<app-nav></app-nav>
+
+<div class="card cart-items rounded m-5" id="full-cart">
+  <div
+    class="card-header d-flex justify-content-between align-items-center py-2"
+  >
+    <p class="fs-5 fw-bold mt-2">
+      Cart Items <span *ngIf="cartSize() !== 0">- {{ cartSize() }}</span>
+    </p>
+    <button
+      class="btn btn-outline-danger"
+      id="remove-all"
+      (click)="removeAll()"
+      [ngClass]="cartSize() === 0 ? 'disabled' : ''"
+    >
+      <i class="bi bi-trash3-fill"></i> Remove All
+    </button>
+  </div>
+  <div id="item" *ngFor="let item of cartItems">
+    <div class="card-details bg-body-secondary m-2 rounded">
+      <div class="item p-3 d-flex justify-content-between">
+        <div class="card" style="width: 18rem">
+          <img src="{{ item.img }}" class="card-img-top rounded" alt="..." />
+        </div>
+        <div class="content d-flex align-items-center w-25">
+          <h4 class="fs-3 fw-bold">{{ item.name }}</h4>
+        </div>
+        <div class="counter d-flex flex-column align-self-center w-25">
+          <div class="counter d-flex">
+            <button
+              class="btn btn-success minus"
+              (click)="minusFunction(item.id)"
+            >
+              <i class="bi bi-dash"></i>
+            </button>
+            <input
+              class="text-center border-success fw-bold w-25"
+              disabled
+              type="text"
+              value="{{ item.count }}"
+            />
+            <button
+              class="btn btn-success plus"
+              (click)="plusFunction(item.id)"
+            >
+              <i class="bi bi-plus-lg"></i>
+            </button>
+          </div>
+        </div>
+        <div class="price d-flex align-items-center">
+          <p class="fs-3 fw-bold">₹ {{ item.price }}</p>
+        </div>
+        <div class="delete float-end">
+          <button class="btn btn-outline-danger" (click)="removeItem(item.id)">
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="cartSize() === 0"
+    class="empty d-flex flex-column justify-content-center align-items-center py-5 mt-3"
+  >
+    <h3>No products in your Cart. Let's get some favourite items of yours!</h3>
+    <button class="btn btn-outline-success w-25" routerLink="/products">
+      Take me to Products
+    </button>
+  </div>
+  <div class="checkout d-flex justify-content-end flex-column align-items-end">
+    <p class="me-5 fw-bold fs-4" *ngIf="cartSize() !== 0">
+      Sub Total: ₹ {{ totalPrice() }}
+    </p>
+    <button
+      class="btn btn-outline-success my-4 me-5 px-5"
+      id="checkout"
+      (click)="checkout()"
+      [ngClass]="cartSize() === 0 ? 'disabled' : ''"
+    >
+      Checkout
+    </button>
+  </div>
+</div>
+
+<app-footer></app-footer>

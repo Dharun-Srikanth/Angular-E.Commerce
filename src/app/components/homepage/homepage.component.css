@@ -1,0 +1,28 @@
+.container-fluid{
+    background-image: url(https://img.freepik.com/premium-photo/abstract-background_932514-9519.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.navbar{
+    position: fixed;
+    width: 100%;
+    cursor: pointer;
+}
+
+#hero-title{
+    font-size: 72px;
+    background: -webkit-linear-gradient(#060054, #5b135b);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+}
+
+#sub{
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 10px;
+}
