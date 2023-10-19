@@ -2,7 +2,13 @@
 <div class="container-fluid min-vh-100">
   <nav class="px-5 py-2 navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold" routerLink="/home"><img src="../../../assets/images/logo-final.png" alt="logo" height="80px" style="border-radius: 100%;"></a>
+      <a class="navbar-brand fw-bold" routerLink="/home"
+        ><img
+          src="../../../assets/images/logo-final.png"
+          alt="logo"
+          height="80px"
+          style="border-radius: 100%"
+      /></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -18,7 +24,10 @@
         class="collapse navbar-collapse justify-content-end p-1"
         id="navbarNavAltMarkup"
       >
-        <div class="products mx-4 text-dark" routerLink="products">
+        <div class="products mx-4 text-dark fs-4" routerLink="/">
+          <i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="products mx-4 text-dark" routerLink="/products">
           <i class="bi bi-box2-fill" routerLinkActive="active"></i> Products
         </div>
         <div
@@ -124,13 +133,6 @@
       <div class="modal-body">
         <form #login="ngForm" (ngSubmit)="loginPage(login)">
           <div class="form-group">
-            <label>Admin Mail and Pass to check</label>
-            <input
-              type="text"
-              class="form-control"
-              value="mail: admin@kumaran.com - Pass: kumaran"
-              disabled
-            />
             <label>Sample User Mail and Pass to check</label>
             <input
               type="text"
@@ -374,7 +376,8 @@
             <span
               data-bs-target="#signinModal"
               data-bs-toggle="modal"
-              class="text-primary bi-cursor-fill" #openLogin
+              class="text-primary bi-cursor-fill"
+              #openLogin
               >click here.</span
             >
           </p>
