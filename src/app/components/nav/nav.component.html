@@ -2,7 +2,7 @@
 <div class="container-fluid bg-body-secondary">
   <nav class="px-5 navbar navbar-expand-lg bg-body-secondary">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold" routerLink="/"><img src="/dist/angular-e.commerce/assets/images/logo-final.png" alt="logo" height="80px" style="border-radius: 100%;"></a>
+      <a class="navbar-brand fw-bold" routerLink="/home"><img src="../../../assets/images/logo-final.png" alt="logo" height="80px" style="border-radius: 100%;"></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -238,7 +238,7 @@
           <div class="form-group">
             <label>Username</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
               id="signup-name"
               placeholder="Enter your name"
@@ -256,8 +256,8 @@
             />
             <div
               *ngIf="
-                (modelRName.errors?.['minlength']?.['requiredLength'] && modelREmail.touched) ||
-                modelREmail.dirty
+                (modelRName.errors?.['minlength']?.['requiredLength'] && modelRName.touched) ||
+                modelRName.dirty
               "
               class="invalid-feedback"
             >

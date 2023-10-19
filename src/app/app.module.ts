@@ -11,6 +11,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { ShopService } from './services/shop.service';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
+import { InstructionPageComponent } from './components/instruction-page/instruction-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ProductsComponent,
     CartComponent,
     OrdersComponent,
-    FooterComponent
+    FooterComponent,
+    InstructionPageComponent
   ],
   imports: [
     BrowserModule,
